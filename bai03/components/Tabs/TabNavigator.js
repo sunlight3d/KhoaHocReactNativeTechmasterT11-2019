@@ -2,7 +2,7 @@
 import React, {Component} from 'react'
 import {View, TextInput, StyleSheet, Text} from 'react-native'
 //yarn add react-native-reanimated react-native-gesture-handler react-navigation
-//yarn add react-native-vector-icons
+//yarn add react-native-vector-icons react-navigation-tabs
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import ChatScreen from './ChatScreen';

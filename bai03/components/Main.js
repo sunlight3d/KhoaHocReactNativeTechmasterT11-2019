@@ -20,10 +20,11 @@ export default class Main extends Component {
         retypedPassword: ''
     }
     _loginOrRegister = async () => {
-        debugger
         const {email, password} = this.state
         if(this.state.isLogin === true) {
-            Alert.alert(`Email = ${email}, password = ${password}`)
+            //Alert.alert(`Email = ${email}, password = ${password}`)
+            const stackNavigation = this.props.navigation
+            stackNavigation.navigate("TabNavigator", {email})
         } else {
 
         }
