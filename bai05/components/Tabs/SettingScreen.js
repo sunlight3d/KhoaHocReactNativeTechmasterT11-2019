@@ -4,10 +4,11 @@ import {View, TextInput, StyleSheet, Text,
     Switch
 } from 'react-native'
 import {changeDarkMode, changeNickName} from '../../redux/actions/actions'
-export default class SettingScreen extends Component {
+import { connect } from 'react-redux'
 
+export class SettingScreen extends Component {
     render() {
-        const {dispatch} = this.state
+        const {dispatch, isDarkMode} = this.props
         return <View style={styles.container}>
             <TouchableOpacity onPress={() => {
                 debugger
@@ -17,9 +18,8 @@ export default class SettingScreen extends Component {
             </TouchableOpacity>
             <Text>Use DarkMode</Text>
             <Switch 
-                // value={isDarkMode}
+                value={isDarkMode}
                 onValueChange = {(isDarkMode) => {
-                debugger
                 dispatch(changeDarkMode(isDarkMode))
             }}>
 
@@ -27,6 +27,14 @@ export default class SettingScreen extends Component {
         </View>
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        isDarkMode: state.settingsReducer.isDarkMode,
+        nickName: state.settingsReducer.nickName
+    }    
+}
+export default connect(mapStateToProps)(SettingScreen)
+  
 const styles = StyleSheet.create({
     container: {
         flex: 1,
