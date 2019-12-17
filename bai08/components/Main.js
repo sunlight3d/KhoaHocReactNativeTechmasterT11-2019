@@ -13,22 +13,32 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import { connect } from 'react-redux'
 import { dispatch } from 'rxjs/internal/observable/pairs'
 import { changeNickName } from '../redux/actions/actions'
+import {registerUser, testFakeAPI} from '../server/apis'
 
 export class Main extends Component {
     state = {
         isLogin: true,
-        email: '',
-        password: '',
+        email: 'hoang1@gmail.com',
+        password: '122255',
         retypedPassword: ''
     }
+    componentDidMount() {
+        testFakeAPI()
+    }
     _loginOrRegister = async () => {
-        const {email, password} = this.state
-        if(this.state.isLogin === true) {
-            //Alert.alert(`Email = ${email}, password = ${password}`)
-            const stackNavigation = this.props.navigation
-            stackNavigation.navigate("TabNavigator", {email})
+        const {email, password, isLogin} = this.state
+        if(isLogin === true) {
+            
         } else {
+            //Alert.alert(`Email = ${email}, password = ${password}`)
+            try {
+                debugger
+                await registerUser(email, password)
+            } catch(error) {
 
+            }
+            // const stackNavigation = this.props.navigation
+            // stackNavigation.navigate("TabNavigator", {email})
         }
     }
     render() {
@@ -69,8 +79,7 @@ export class Main extends Component {
                         keyboardType={"email-address"}
                         value={email}
                         onChangeText = {(email) => {
-                            debugger
-                            dispatch(changeNickName(email))
+                            // dispatch(changeNickName(email))
                             this.setState({email})                            
                         }}
                         placeholder="Enter your email">
