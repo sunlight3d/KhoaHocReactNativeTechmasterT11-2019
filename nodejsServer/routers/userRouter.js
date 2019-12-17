@@ -13,16 +13,29 @@ router.post('/register', async (req, res) => {
     const sqlCommand = "CALL loginUser(?, ?)"
     connection.query(sqlCommand, [email, password], (error, results, field) => {
         debugger
-        //results[0][0]
-        const {id, email='', tokenKey='', expiredDate='', xx =''} = results.length > 0 && results[0].length > 0 ? results[0][0] : {}
-        console.log("aaa")
+        if(error != null){
+            res.json({
+                result: "failed",
+                data: {}, 
+                message: JSON.stringify(error)
+            })
+            return
+        }
+        if(results[0][0]) {
+            res.json({
+                result: "ok",
+                data: results[0][0]
+            })
+        } else {
+            res.json({
+                result: "failed",
+                data: {}, 
+                message: "Data is blank"
+            })
+            return
+        }                        
     })
-    // res.json({
-    //     result: "ok",
-    //     data: {
-    //         email, password
-    //     }
-    // })
+    
 })
 
 module.exports = router
